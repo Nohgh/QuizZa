@@ -3,7 +3,7 @@ import { modalStateAtom } from '../recoil/modalStateAtom';
 import { useRef } from 'react'
 
 
-const useModal=()=>{
+const useSetModal=()=>{
     const [modalState,setModalState]=useRecoilState(modalStateAtom);
     const modalRef=useRef(null);
     const clickOutSideModal=(e: React.MouseEvent<HTMLDivElement,MouseEvent>)=>{
@@ -12,4 +12,4 @@ const useModal=()=>{
     }
     return {modalState,modalRef,clickOutSideModal}
 }
-export default useModal
+export default useSetModal;

@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+
 const  selectedModalAtom=atom({
     key:'selectedModal',
     default:'default'

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import useSelectedModal from "../hooks/useSelectedModal"
 
 const HomeWrapper=styled.div`
   margin-top: calc(50px + 1%);
@@ -9,10 +10,12 @@ const HomeWrapper=styled.div`
   /* 모달에서 overflow를 주는데 이를 풀기 위해서 auto로 정의 해줘야함 */
 `
 const Home = () => {
+ const {updateModalName}=useSelectedModal("default")
   return (
     <>
         <HomeWrapper>
             <div>
+              <button onClick={updateModalName}>default modal 생성</button>
             사일로에서 일하기
 토스에는 "프론트엔드 개발팀"이 없어요. 토스의 프론트엔드 개발자는 "사일로"라는 조직 안에서 각자 독립적으로 일해요. 사일로의 대표적인 예시로는 "송금 사일로", "혜택 사일로", "카드 사일로" 등이 있는데요. 명확한 목표와 함께 다른 직군의 동료들과 함께 일하는 조직이에요. (스포티파이의 스쿼드 조직을 상상해 보시면 돼요!) 
 토스의 프론트엔드 개발자는 프로덕트 오너(PM), 디자이너, 서버 개발자들과 가까운 자리에서 유기적으로 밀접하게 협업하고 있어요. 한 사일로는 보통 4~8명 내외로 구성되기 때문에 마치 작은 스타트업에서 일하는 느낌이에요.

@@ -1,6 +1,6 @@
 import {  useRecoilState } from "recoil"
 import styled from "styled-components"
-import { sideBarState } from "../recoil/sideBarStateAtom"
+import { sideBarStateAtom } from "../recoil/sideBarStateAtom"
 
 interface SideStateType{
     sideState:boolean
@@ -31,8 +31,7 @@ const LeftIcon=styled.svg`
     height: 20px;
 `
 const LeftBar = () => {
-    const [sideState,setSideState]=useRecoilState(sideBarState);
-
+    const [sideState,setSideState]=useRecoilState(sideBarStateAtom);
     const clickCloseSideBar=()=>{
         setSideState(false);
     }

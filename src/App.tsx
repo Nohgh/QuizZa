@@ -5,7 +5,7 @@ import Header from './components/Header'
 import LeftBar from './components/LeftBar'
 import styled from 'styled-components'
 import ModalContainer from './components/ModalContainer/ModalContainer'
-import useModal from './hooks/useModal'
+import useSetModal from './hooks/useSetModal'
 
 interface ModalStateType{
   modalState:boolean;
@@ -18,11 +18,10 @@ const MainBody = styled.div.withConfig({
 
 
 function App() {
-  const {modalState,modalRef,clickOutSideModal}=useModal();
+  const {modalState,modalRef,clickOutSideModal}=useSetModal();
   return (
     <>
-      <MainBody onClick={clickOutSideModal} modalState={modalState} id='MainBody'>
-         {/* TODO: modalComponent에 모달 컴포넌트 지정하도록 코드화(변수 사용) */}
+      <MainBody id='MainBody' onClick={clickOutSideModal} modalState={modalState} >
         <ModalContainer modalRef={modalRef}/>
         <LeftBar/>
         <div id='RightBody'>
