@@ -6,7 +6,6 @@ const HomeWrapper=styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  overflow: auto; 
   /* 모달에서 overflow를 주는데 이를 풀기 위해서 auto로 정의 해줘야함 */
 `
 const Home = () => {

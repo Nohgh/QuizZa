@@ -1,6 +1,5 @@
 #MainBody{
     display: flex;
-    overflow: hidden;
 }
 #RightBody{
     display: flex;

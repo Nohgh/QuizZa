@@ -16,7 +16,7 @@ const HeaderWrapper=styled.div`
 const HeaderBody=styled.div`
     width: 50%;
     height: 100%;
-    background-color: rgba(239, 239, 239, 0.517);
+    background-color: rgba(217, 235, 241, 0.832);
     display: flex;
     justify-content: space-around;
     align-items: center;
