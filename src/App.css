@@ -1,0 +1,10 @@
+#MainBody{
+    display: flex;
+    overflow: hidden;
+}
+#RightBody{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
