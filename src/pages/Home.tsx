@@ -3,12 +3,13 @@ import styled from "styled-components"
 // import useSelectedModal from "../hooks/useSelectedModal"
 
 const HomeWrapper=styled.div`
+  font-family: 'SUIT-Regular';
+
   margin-top: calc(50px + 1%);
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-
   /* 모달에서 overflow를 주는데 이를 풀기 위해서 auto로 정의 해줘야함 */
 `
 const HomeBody=styled.div`
@@ -21,6 +22,7 @@ const HomeBody=styled.div`
 `
 const HomeWords=styled.div`
   font-size: 30px;
+  font-weight: 600;
   margin-bottom: 5%;
 `
 const QuizLinkBoxWrapper=styled.div`
@@ -33,13 +35,13 @@ const QuizLinkBoxWrapper=styled.div`
 const BaseQuizBox =styled(Link)`
   width: 200px;
   height: 250px;
-  /* background-color: #edf0f3b2; */
   border: 1px solid #edf0f3b2;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 400ms;
+  font-size: 24px;
   &:hover {
     transition: 400ms;
   }

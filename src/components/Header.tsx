@@ -13,6 +13,10 @@ const HeaderWrapper=styled.div`
     width: 100%;
     height: 50px;
     margin: 0 auto;
+    font-family: 'SUIT-Regular';
+    font-weight: 800;
+    font-size: 20px;
+
 `
 const HeaderBody=styled.div`
     width: 50%;
