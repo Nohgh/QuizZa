@@ -17,7 +17,8 @@ const HeaderWrapper=styled.div`
 const HeaderBody=styled.div`
     width: 50%;
     height: 100%;
-    background-color: rgba(217, 235, 241, 0.832);
+    background: rgb(186,237,158);
+    background: linear-gradient(90deg, rgba(186,237,158,1) 0%, rgba(149,229,184,1) 34%, rgba(149,211,229,1) 65%, rgba(141,168,224,1) 100%);
     display: flex;
     justify-content: space-around;
     align-items: center;

@@ -6,7 +6,8 @@ import LeftBar from './components/LeftBar'
 import styled from 'styled-components'
 import ModalContainer from './components/ModalContainer/ModalContainer'
 import useSetModal from './hooks/useSetModal'
-
+import Test from './pages/Test'
+import GlobalStyles from './GlobalStyles'
 interface ModalStateType{
   modalState:boolean;
 }
@@ -21,14 +22,19 @@ function App() {
   const {modalState,modalRef,clickOutSideModal}=useSetModal();
   return (
     <>
-      <MainBody id='MainBody' onClick={clickOutSideModal} modalState={modalState} >
+      <MainBody id='MainBodyWrapper' onClick={clickOutSideModal} modalState={modalState} >
+    <GlobalStyles/>
+
         <ModalContainer modalRef={modalRef}/>
-        <LeftBar/>
-        <div id='RightBody'>
-          <Header/>
-          <Routes>
-            <Route path='/' element={<Home/>}></Route>
-          </Routes>
+        <div id='MainBody'>
+          <LeftBar/>
+          <div id='Main'>
+            <Header/>
+            <Routes>
+              <Route path='/' element={<Home/>}></Route>
+              <Route path='/test' element={<Test/>}></Route>
+            </Routes>
+          </div>
         </div>
       </MainBody>
     </>
