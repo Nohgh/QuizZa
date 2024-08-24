@@ -6,7 +6,6 @@ import LeftBar from './components/LeftBar'
 import styled from 'styled-components'
 import ModalContainer from './components/ModalContainer/ModalContainer'
 import useModal from './hooks/useModal'
-import LoginModal from './components/ModalComponents/LoginModal'
 
 interface ModalStateType{
   modalState:boolean;
@@ -17,7 +16,6 @@ const MainBody = styled.div.withConfig({
 })<ModalStateType>`
   overflow: ${(props) => props.modalState ? 'hidden' : 'auto'};`
 
-const ModalComponent =LoginModal;
 
 function App() {
   const {modalState,modalRef,clickOutSideModal}=useModal();
@@ -25,7 +23,7 @@ function App() {
     <>
       <MainBody onClick={clickOutSideModal} modalState={modalState} id='MainBody'>
          {/* TODO: modalComponent에 모달 컴포넌트 지정하도록 코드화(변수 사용) */}
-        <ModalContainer modalRef={modalRef} modalComponent={<ModalComponent />}/>
+        <ModalContainer modalRef={modalRef}/>
         <LeftBar/>
         <div id='RightBody'>
           <Header/>
