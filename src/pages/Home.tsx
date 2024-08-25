@@ -44,6 +44,7 @@ const BaseQuizBox =styled(Link)`
   font-size: 24px;
   &:hover {
     transition: 400ms;
+    font-size: 26px;
   }
 `
 const QuizStartBox=styled(BaseQuizBox)`
