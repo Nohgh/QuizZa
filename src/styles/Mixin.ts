@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-
+/**flex Mixin */
 export const  flexCenter=css`
 display: flex;
 justify-content: center;
@@ -20,4 +20,9 @@ display: flex;
 flex-direction: column;
 align-items: center;
 `
-// export default {flexCenter,flexJustCenter,flexColumnCenter,flexColumnAlignCenter};
+export const flexColumnJustStart=css`
+ display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+`

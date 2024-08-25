@@ -1,29 +1,24 @@
 import { Link } from "react-router-dom"
-
 import styled from "styled-components"
 import imoge1 from "../../assets/img/이모지1.png"
 import imoge2 from "../../assets/img/이모지2.png"
 import imoge3 from "../../assets/img/이모지3.png"
-
+import {flexJustCenter,flexColumnJustStart, flexColumnCenter} from "../../styles/Mixin"
 // import useSelectedModal from "../hooks/useSelectedModal"
 
 export const HomeWrapper=styled.div`
   font-family: 'SUIT-Regular';
-
   margin-top: calc(50px + 1%);
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  ${flexJustCenter}
   /* 모달에서 overflow를 주는데 이를 풀기 위해서 auto로 정의 해줘야함 */
 `
 export const HomeBody=styled.div`
   padding-top:10%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
+  ${flexColumnJustStart}
 `
 export const HomeWords=styled.div`
   font-size: 30px;
@@ -50,10 +45,7 @@ export const QuizLinkBoxWrapper=styled.div`
   height: 250px;
   border: 1px solid #edf0f3b2;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${flexColumnCenter}
   transition: 400ms;
   font-size: 24px;
   img{
