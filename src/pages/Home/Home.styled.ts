@@ -84,6 +84,10 @@ export const ManageQuizBox=styled(BaseQuizBox)`
   }
 `
 export const Imoge=styled.div`
+@media only screen and (min-width: 1100px) {
+    width: 150px;
+    height: 150px;
+}
   width: 100px;
   height: 100px;
   background-position: center;

@@ -11,15 +11,15 @@ const Home = () => {
                 효율적인 학습 도우미 QuizZa
               </H.HomeWords>
               <H.QuizLinkBoxWrapper>
-                <H.QuizStartBox to={'/test'}>
+                <H.QuizStartBox to={'/quizes'}>
                   <H.Imoge1></H.Imoge1>
                   Quiz 시작하기
                 </H.QuizStartBox>
-                <H.MakeQuizBox to={'/test'}>
+                <H.MakeQuizBox to={'/creator'}>
                 <H.Imoge2/>
                   Quiz 생성하기
                 </H.MakeQuizBox>
-                <H.ManageQuizBox to={'/test'}>
+                <H.ManageQuizBox to={'/modifier'}>
                 <H.Imoge3/>
                   Quiz 관리하기
                 </H.ManageQuizBox>

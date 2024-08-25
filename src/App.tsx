@@ -6,8 +6,10 @@ import LeftBar from './components/LeftBar'
 import styled from 'styled-components'
 import ModalContainer from './components/ModalContainer/ModalContainer'
 import useSetModal from './hooks/useSetModal'
-import Test from './pages/Test'
-import GlobalStyles from './GlobalStyles'
+import GlobalStyles from './styles/GlobalStyles'
+import Quiz from './pages/Quiz/Quiz'
+import QuizCreator from './pages/QuizCreeator/QuizCreator'
+import QuizModifier from './pages/QuizModifier/QuizModifier'
 interface ModalStateType{
   modalState:boolean;
 }
@@ -32,7 +34,9 @@ function App() {
             <Header/>
             <Routes>
               <Route path='/' element={<Home/>}></Route>
-              <Route path='/test' element={<Test/>}></Route>
+              <Route path='/quizes' element={<Quiz/>}></Route>
+              <Route path='/creator' element={<QuizCreator/>}></Route>
+              <Route path='/modifier' element={<QuizModifier/>}></Route>
             </Routes>
           </div>
         </div>
