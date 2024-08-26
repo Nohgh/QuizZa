@@ -19,7 +19,6 @@ const QuizCreator = () => {
     return (
         <QuizCreatorWrapper>
             {createStep===0 &&
-            //TODO: enter입력 시 다음으로 넘어갈 수 있게 세팅(입력값 0 이상)
                 <SetQuizLength setCreateStep={setCreateStep}/>
             }
             {createStep===1 &&

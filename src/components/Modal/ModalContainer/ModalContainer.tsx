@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import  { RefObject } from 'react'
 import LoginModal from '../ModalComponents/LoginModal';
 import DefaultModal from '../ModalComponents/DefaultModal';
-import { useModalStore } from '../../store/useModalStore';
+import { useModalStore } from '../../../store/useModalStore';
 
 
 interface IsModalOpenType{

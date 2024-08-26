@@ -6,9 +6,7 @@ const useSetModal=()=>{
     const {isModalOpen,setModalState}=useModalStore();
     const modalRef=useRef(null);
     const clickOutSideModal=(e: React.MouseEvent<HTMLDivElement,MouseEvent>)=>{
-        if (modalRef.current ===e.target) {setModalState(false)
-            console.log("!")
-        };
+        if (modalRef.current ===e.target) setModalState(false);
     }
 
     return {isModalOpen,modalRef,clickOutSideModal}

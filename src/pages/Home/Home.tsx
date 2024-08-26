@@ -1,12 +1,10 @@
 import * as H from './Home.styled'; //import할 요소가 많지 않다면 distructing사용
 
 const Home = () => {
-//  const {updateModalName}=useSelectedModal("default")
   return (
     <>
         <H.HomeWrapper>
             <H.HomeBody>
-              {/* <button onClick={updateModalName}>default modal 생성</button> */}
               <H.HomeWords>
                 효율적인 학습 도우미 QuizZa
               </H.HomeWords>

@@ -4,7 +4,7 @@ import Home from './pages/Home/Home'
 import Header from './components/Layout/Header'
 import LeftBar from './components/Layout/LeftBar'
 import styled from 'styled-components'
-import ModalContainer from './components/ModalContainer/ModalContainer'
+import ModalContainer from './components/Modal/ModalContainer/ModalContainer'
 import useSetModal from './hooks/useSetModal'
 import GlobalStyles from './styles/GlobalStyles'
 import Quiz from './pages/Quiz/Quiz'
@@ -19,7 +19,6 @@ const MainBody = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'isModalOpen'
 })<IsModalOpenType>`
   overflow: ${(props) => props.isModalOpen ? 'hidden' : 'auto'};`
-
 
 function App() {
   const {isModalOpen,modalRef,clickOutSideModal}=useSetModal();
