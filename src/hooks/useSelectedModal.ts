@@ -1,19 +1,12 @@
-import { useSetRecoilState } from "recoil";
-// import { modalStateAtom } from "../recoil/modalStateAtom";
-import selectedModalAtom from "../recoil/selectedModalAtom";
 import { useModalStore } from "../store/useModalStore";
 
 
 const useSelectedModal=(modalName:string)=>{
-
-    // const modalState=useSetRecoilState(modalStateAtom);
-    const {setModalState}=useModalStore();
-    const setSeledtedModal=useSetRecoilState(selectedModalAtom);
-
+    const {setModalState,setModalName}=useModalStore();
+    //modal open + modal 이름 업데이트
     const updateModalName=()=>{
-        // modalState(true);
         setModalState(true);
-        setSeledtedModal(modalName);
+        setModalName(modalName);
     }
     return {updateModalName};
 }

@@ -1,8 +1,7 @@
-import { useSetRecoilState } from "recoil"
 import styled from "styled-components"
-import { sideBarStateAtom } from "../recoil/sideBarStateAtom"
-import useSelectedModal from "../hooks/useSelectedModal"
+import useSelectedModal from "../../hooks/useSelectedModal"
 import { Link } from "react-router-dom"
+import { useLeftBarStore } from "../../store/useLeftBarStore"
 
 const HeaderWrapper=styled.div`
     position: fixed;
@@ -33,9 +32,9 @@ const HeaderIcons=styled.svg`
 `
 const Header = () => {
   //사이드 바 상태
-  const setSideBar=useSetRecoilState(sideBarStateAtom);
+  const {isLeftBarOpen,setIsLeftBarOpen}=useLeftBarStore();
   const clickSideBarAppear=()=>{
-    setSideBar(true);
+    setIsLeftBarOpen(!isLeftBarOpen);
   }
   //모달 상태
   const {updateModalName}=useSelectedModal("login");

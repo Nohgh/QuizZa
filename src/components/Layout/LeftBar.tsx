@@ -1,19 +1,18 @@
-import {  useRecoilState } from "recoil"
 import styled from "styled-components"
-import { sideBarStateAtom } from "../recoil/sideBarStateAtom"
+import { useLeftBarStore } from "../../store/useLeftBarStore"
 
 interface SideStateType{
-    sideState:boolean
+    isLeftBarOpen:boolean
 }
 const SideBarWrapper=styled.div.withConfig({
-    shouldForwardProp:(prop)=>prop !== 'sideState'
+    shouldForwardProp:(prop)=>prop !== 'isLeftBarOpen'
 })<SideStateType>`
     //z-index로 header보다 상단에 위치시켜 접기 버튼 활성
     z-index:2; 
     position:sticky;
     top:0;
     //
-    width: ${(props)=> props.sideState?'10vw':'none'};
+    width: ${(props)=> props.isLeftBarOpen?'10vw':'none'};
     height: 100vh;
     display: flex;
     align-items: center;
@@ -59,23 +58,23 @@ const LeftIcon=styled.svg`
     height: 20px;
 `
 const LeftBar = () => {
-    const [sideState,setSideState]=useRecoilState(sideBarStateAtom);
+    const {isLeftBarOpen,setIsLeftBarOpen}=useLeftBarStore();
     const clickCloseSideBar=()=>{
-        setSideState(false);
+        setIsLeftBarOpen(false);
     }
     const clickOpenSideBar=()=>{
-        setSideState(true);
+        setIsLeftBarOpen(true);
     }
     return (
-        <SideBarWrapper sideState={sideState}>
-            {sideState &&
+        <SideBarWrapper isLeftBarOpen={isLeftBarOpen}>
+            {isLeftBarOpen &&
             <SideBar >
                 {/* <button onClick={clickCloseSideBar}>닫기</button> */}
                 <LeftIcon  onClick={clickCloseSideBar} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"/></LeftIcon>
             
             </SideBar>
             }
-            {!sideState &&
+            {!isLeftBarOpen &&
                 <ShortSideBar>
                     <LeftIcon onClick={clickOpenSideBar} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/></LeftIcon>
                 </ShortSideBar>
