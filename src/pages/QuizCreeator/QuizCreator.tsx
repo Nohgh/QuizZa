@@ -22,8 +22,8 @@ const QuizCreator = () => {
             //TODO: enter입력 시 다음으로 넘어갈 수 있게 세팅(입력값 0 이상)
                 <SetQuizLength setCreateStep={setCreateStep}/>
             }
-
             {createStep===1 &&
+            //TODO: 문제 길이 전역적으로 관리 
                 <CustomQuiz setCreateStep={setCreateStep}/>
             }
 

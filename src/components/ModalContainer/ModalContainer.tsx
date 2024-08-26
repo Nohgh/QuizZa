@@ -47,7 +47,7 @@ interface ModalContainerProps{
     //RefObject 타입을 사용하여 HTMLDivElement에 대한 참조를 지정한다.
 }
 
-const ModalContainer:React.FC<ModalContainerProps> = ({modalRef}) => {
+const ModalContainer= ({modalRef}:ModalContainerProps) => {
     const [modalState,setModalState]=useRecoilState(modalStateAtom);
     const selectedModalName=useRecoilValue(selectedModalAtom);
 

@@ -10,23 +10,23 @@ import GlobalStyles from './styles/GlobalStyles'
 import Quiz from './pages/Quiz/Quiz'
 import QuizCreator from './pages/QuizCreeator/QuizCreator'
 import QuizModifier from './pages/QuizModifier/QuizModifier'
-interface ModalStateType{
-  modalState:boolean;
+
+interface IsModalOpenType{
+  isModalOpen:boolean;
 }
 
 const MainBody = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'modalState'
-})<ModalStateType>`
-  overflow: ${(props) => props.modalState ? 'hidden' : 'auto'};`
+  shouldForwardProp: (prop) => prop !== 'isModalOpen'
+})<IsModalOpenType>`
+  overflow: ${(props) => props.isModalOpen ? 'hidden' : 'auto'};`
 
 
 function App() {
-  const {modalState,modalRef,clickOutSideModal}=useSetModal();
+  const {isModalOpen,modalRef,clickOutSideModal}=useSetModal();
   return (
     <>
-      <MainBody id='MainBodyWrapper' onClick={clickOutSideModal} modalState={modalState} >
-    <GlobalStyles/>
-
+      <MainBody id='MainBodyWrapper' onClick={clickOutSideModal} isModalOpen={isModalOpen}>
+        <GlobalStyles/>
         <ModalContainer modalRef={modalRef}/>
         <div id='MainBody'>
           <LeftBar/>

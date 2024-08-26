@@ -29,7 +29,7 @@ interface PropsType{
 
 const SetQuizLength = ({setCreateStep}:PropsType) => {
     //세팅한 문제 수
-    const [quizLength,setQuizLength]=useState< number>(0);
+    const [quizLength,setQuizLength]=useState<number>(0);
     //문제 수 세팅
     const handleQuizLength=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setQuizLength(Number(e.target.value));
