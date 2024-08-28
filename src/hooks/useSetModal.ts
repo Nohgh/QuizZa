@@ -8,7 +8,6 @@ const useSetModal=()=>{
     const clickOutSideModal=(e: React.MouseEvent<HTMLDivElement,MouseEvent>)=>{
         if (modalRef.current ===e.target) setModalState(false);
     }
-
     return {isModalOpen,modalRef,clickOutSideModal}
 }
 export default useSetModal;

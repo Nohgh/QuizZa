@@ -21,7 +21,6 @@ const ModalOutSide=styled.div.withConfig({
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
     display: ${(props)=>props.isModalOpen?'flex':'none'};
 `
 

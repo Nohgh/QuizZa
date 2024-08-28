@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuizLengthStore } from "../../store/useQuizLengthStore"
 import styled from "styled-components";
-import { flexCenter, flexColumnAlignCenter, flexColumnJustStart } from "../../styles/Mixin";
+import { flexCenter, flexColumnJustStart } from "../../styles/Mixin";
 
-
+interface CurrentParsentType{
+  currentParsent:number;
+}
 const CustomQuizWrapper=styled.div`
   width: 100%;
   height: 100%;
@@ -11,14 +13,21 @@ const CustomQuizWrapper=styled.div`
 const ProgressBarWrapper=styled.div`
   width: 100%;
   height: 5%;
-  ${flexCenter}
+  display: flex;
+  justify-content: start;
+  align-items: center;
 `
-const ProgressBar=styled.div`
+const ProgressBar=styled.div.withConfig({
+  shouldForwardProp:(prop)=>prop!=='currentParsent'
+})<CurrentParsentType>`
   width: 50%;
   height: 30px;
-  background-color: #9b9bd4;
+  background: linear-gradient(90deg, rgba(186,237,158,1) 0%, rgba(149,229,184,1) 34%, rgba(149,211,229,1) 65%, rgba(141,168,224,1) 100%);
   border-radius: 10px;
-  ${flexCenter}
+  ${flexCenter};
+  width: ${(prop)=>prop.currentParsent}%;
+  transition:ease-in-out 200ms;
+
 `
 
 const CustomQuizAreaWrapper=styled.div`
@@ -55,16 +64,23 @@ const QuizNavBtn=styled.button`
 interface PropsType{
     setCreateStep:React.Dispatch<React.SetStateAction<number>>
 }
-//TODO: 퀴즈 생성 페이지 ui 생각하기 
+//TODO: 퀴즈 생성 페이지 ui 생각하기 , modal시 배경 overflow여도 스크롤바 보이게 
 const CustomQuiz = ({setCreateStep}:PropsType)=> {
   const [currentQuizNum,setCurrentQuizNum]=useState<number>(1);
   const {quizLength}=useQuizLengthStore();
+  useEffect(()=>{
+    if(currentQuizNum===quizLength)
+      setCreateStep(1);
+  },[currentQuizNum, quizLength, setCreateStep])
   return (
     <CustomQuizWrapper>
 
       <ProgressBarWrapper>
-        <ProgressBar>
-        {currentQuizNum}/{quizLength}
+        <ProgressBar currentParsent={Number((currentQuizNum/quizLength)*100)} >
+          {/* <div>{currentQuizNum}/{quizLength}</div> */}
+          <div>
+          {currentQuizNum}/{quizLength}
+          </div>
         </ProgressBar>
       </ProgressBarWrapper>
 
@@ -80,12 +96,13 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
           <QuizNavBtnWrapper>
             {currentQuizNum>1&&
             <QuizNavBtn onClick={()=>{setCurrentQuizNum(currentQuizNum-1)}}>이전 문제</QuizNavBtn>}
-            <QuizNavBtn onClick={()=>{setCurrentQuizNum(currentQuizNum+1)}}>다음 문제</QuizNavBtn>
+            <input type="text" value={currentQuizNum}/>
+            {currentQuizNum<quizLength&&<QuizNavBtn onClick={()=>{setCurrentQuizNum(currentQuizNum+1)}}>다음 문제</QuizNavBtn>}
           </QuizNavBtnWrapper>
       </CustomQuizAreaWrapper>
 
-      <button onClick={()=>{setCreateStep(1)}}>문제 수 세팅</button>
-      {/* 모두 완료하면 표시<button onClick={()=>{setCreateStep(2)}}>다음</button> */}
+      <button onClick={()=>{setCreateStep(1)}}>처음으로</button>
+      {currentQuizNum==quizLength&&<button onClick={()=>{setCreateStep(2)}}>생성 완료하기</button>}
     </CustomQuizWrapper>
   )
 }

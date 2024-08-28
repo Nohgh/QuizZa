@@ -38,7 +38,7 @@ const SetQuizLength = ({setCreateStep}:PropsType) => {
   return (
     <InputQuizLength>
             <div className="inputTitle">
-                문제수를 입력하세요  
+                <div>문제수를 입력하세요</div>
             </div>
             <input className="inputQuizLength" name="quizLength" value={quizLength} onChange={handleQuizLength} />
             {quizLength>0 &&
