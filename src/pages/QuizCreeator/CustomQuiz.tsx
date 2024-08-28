@@ -6,7 +6,7 @@ import { Colors } from "../../styles/Colors";
 interface CurrentParsentType{
   currentParsent:number;
 }
-interface QuizType {
+interface IsActiveType {
   isActive: boolean;
 }
 
@@ -52,7 +52,7 @@ const QuizTypeBtnBundle=styled.div`
 `
 const QuizTypeBtn=styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "isActive",
-})<QuizType>`
+})<IsActiveType>`
       width: 8vw;
       height: 25px;
       margin-right: 2vw;
@@ -98,7 +98,7 @@ const InQuizNum=styled.div`
 `
 const CheckIcon=styled.svg.withConfig({
   shouldForwardProp:(prop)=>prop!=='isActive'
-})<QuizType>`
+})<IsActiveType>`
 position: absolute;
   top: -5px;
   width: 25px;
@@ -141,7 +141,7 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
     setQuizTitle(e.target.value);
     console.log(quizTitle);
   }
-
+  //TODO: 
   const [rightNum,setRightNum]=useState<null|number>(null);
 
   const clickQuizNum=(n:number)=>{

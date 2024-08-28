@@ -35,12 +35,17 @@ const SetQuizLength = ({setCreateStep}:PropsType) => {
     const handleQuizLength=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setQuizLength(Number(e.target.value));
     }
+    const enterKeyPress=(e:React.KeyboardEvent)=>{
+        if(e.key==='Enter' && quizLength>0) setCreateStep(1);
+
+    }
   return (
     <InputQuizLength>
             <div className="inputTitle">
                 <div>문제수를 입력하세요</div>
             </div>
-            <input className="inputQuizLength" name="quizLength" value={quizLength} onChange={handleQuizLength} />
+            <input className="inputQuizLength" name="quizLength" 
+            value={quizLength} onChange={handleQuizLength} onKeyDown={enterKeyPress} />
             {quizLength>0 &&
             <QuizNumBtn onClick={()=>{setCreateStep(1)}}>
                 <div>생성하기</div>
