@@ -3,6 +3,7 @@ import { useQuizLengthStore } from "../../store/useQuizLengthStore"
 import styled from "styled-components";
 import { flexCenter } from "../../styles/Mixin";
 import { Colors } from "../../styles/Colors";
+
 interface CurrentParsentType{
   currentParsent:number;
 }
@@ -33,7 +34,6 @@ const ProgressBar=styled.div.withConfig({
   width: ${(prop)=>prop.currentParsent}%;
   transition:ease-in-out 200ms;
 `
-
 const CustomQuizAreaWrapper=styled.div`
   width: 100%;
   height: 60%;
@@ -44,7 +44,6 @@ const CustomQuizArea=styled.div`
   font-size:20px;
 
 `
-
 
 const QuizTypeBtnBundle=styled.div`
     display: flex;
@@ -67,7 +66,6 @@ margin-bottom: 2%;
 const QuizTitleTitle=styled.div`
   
 `
-
 const QuizTitleInput=styled.input`
   font-size: 18px;
   width: 50vw;
@@ -80,10 +78,20 @@ const QuizTitleInput=styled.input`
 
   }
 `
-
+const MultichoiceForm=styled.div`
+  .CorrectNumWords{
+    color: ${Colors.black0};
+  }
+  .CorrectNumInputBox{
+    width: 30px;
+  }
+  .MultichoiceFormWords{
+    margin-bottom: 1.5%;
+  }
+`
 const InQuizNum=styled.div`
   display: flex;
-  margin-bottom: 1.2%;
+  margin-bottom: 1.2%; 
   position: relative;
   .num{
     ${flexCenter}
@@ -94,6 +102,15 @@ const InQuizNum=styled.div`
   }
   input{
     margin-left: 1%;
+    width: 40%;
+    height: 20px;
+    border: none;
+    border-bottom: 1.5px solid ${Colors.gray3};
+    &:focus{
+      outline: none;
+      border-bottom: 1.5px solid #42F08E;
+
+  }
   }
 `
 const CheckIcon=styled.svg.withConfig({
@@ -115,25 +132,53 @@ const QuizNavBtnWrapper=styled.div`
   height: 10%;
 `
 
-const QuizNavBtn=styled.button`
-  width: 100px;
+const QuizNavBtn=styled.div`
+  width: 120px;
   height: 100%;
+  ${flexCenter}
+  border-radius: 8px;
+  border: 1px solid ${Colors.gray2};
+  padding: 1%;
+  .words{
+    ${flexCenter}
+    width: 80%;
+    /* background-color: #2f75b2; */
+  }
+  .IconWrapper{
+    width: 20%;
+    /* background-color: #697885; */
+    ${flexCenter}
+    svg{
+      width: 15px;
+      height:15px;
+    }
+  }
 `
 //useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.
-interface PropsType{
-    setCreateStep:React.Dispatch<React.SetStateAction<number>>
-}
+
 // const quizBundle={}
+interface PropsType{
+  setCreateStep:React.Dispatch<React.SetStateAction<number>>
+}
 
 const CustomQuiz = ({setCreateStep}:PropsType)=> {
   //현재 퀴즈 번호
   const [currentQuizNum,setCurrentQuizNum]=useState<number>(1);
+  const handleSetQuizNumDown=()=>{
+    if (currentQuizNum>1)setCurrentQuizNum(currentQuizNum-1)
+  }
+  const handleSetQuizNumUp=()=>{
+    if (currentQuizNum<quizLength) setCurrentQuizNum(currentQuizNum+1)
+  }
+  const InputCurrentQuizNum=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    setCurrentQuizNum(Number(e.target.value));
+
+  }
+
   //전체 퀴즈 수
   const {quizLength}=useQuizLengthStore();
-
   //문제 유형
   const [quizType,setQuizType]=useState('객관식');
-  
   //문제 제목
   const [quizTitle,setQuizTitle]=useState('');
   //문제 제목 세팅
@@ -141,17 +186,14 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
     setQuizTitle(e.target.value);
     console.log(quizTitle);
   }
-  //TODO: 
+  //답안 작성
   const [rightNum,setRightNum]=useState<null|number>(null);
-
   const clickQuizNum=(n:number)=>{
     if(rightNum===n){
       setRightNum(null);
-      console.log("cancle")
     }
     else{
       setRightNum(n);
-      console.log("!")
     }
   }
   return (
@@ -178,8 +220,10 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
               <QuizTitleInput type="text" value={quizTitle} onChange={handleQuizTitle}/>
             </QuizTitleWrapper>
             {quizType==='객관식'&&
-              <div>
+              <MultichoiceForm>
                 <div>
+                  <div className="MultichoiceFormWords">문제를 작성하고 옆의 번호를 클릭하여 정답을 표시하세요</div>
+                  {/* TODO: 문제 입력 input박스 늘리기, 정답인 input박스 색상 다르게 구현, 밑에 다음,이전문제,번호 입력칸 ui */}
                   <InQuizNum>
                     <div>
                       <div className="num" onClick={()=>clickQuizNum(1)} >1</div>
@@ -189,35 +233,38 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
                   </InQuizNum>
                   <InQuizNum>
                     <div>
-                      <div className="num">2</div>
-                      <CheckIcon isActive={rightNum===2} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
+                      <div className="num" onClick={()=>clickQuizNum(2)} >2</div>
+                      <CheckIcon onClick={()=>clickQuizNum(2)} isActive={rightNum===2} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
                     </div>
                     <input type="text" />
                   </InQuizNum>
                   <InQuizNum>
                     <div>
-                      <div className="num">3</div>
-                      <CheckIcon isActive={rightNum===3} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
+                      <div className="num" onClick={()=>clickQuizNum(3)}>3</div>
+                      <CheckIcon onClick={()=>clickQuizNum(3)} isActive={rightNum===3} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
                     </div>
                     <input type="text" />
                   </InQuizNum>
                   <InQuizNum>
                     <div>
-                      <div className="num">4</div>
-                      <CheckIcon isActive={rightNum===4}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
+                      <div className="num" onClick={()=>clickQuizNum(4)}>4</div>
+                      <CheckIcon onClick={()=>clickQuizNum(4)} isActive={rightNum===4}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
                     </div>
                     <input type="text" />
                   </InQuizNum>
                   <InQuizNum>
                     <div>
-                      <div className="num">5</div>
-                      <CheckIcon isActive={rightNum===5} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
+                      <div className="num" onClick={()=>clickQuizNum(5)}>5</div>
+                      <CheckIcon onClick={()=>clickQuizNum(5)}isActive={rightNum===5} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></CheckIcon>
                     </div>
                     <input type="text" />
                   </InQuizNum>
                 </div>
-                <div><div>정답번호를 입력하세요</div> <input type="text" /></div>
-              </div>
+                {/* <div>
+                  <div className="CorrectNumWords">정답번호를 입력하거나 문제 옆 번호를 클릭하세요</div> 
+                  <input className="CorrectNumInputBox"type="text"/>
+                </div> */}
+              </MultichoiceForm>
             }
             {quizType==='주관식'&&
               <div>주관식</div>
@@ -227,10 +274,21 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
             }
           </CustomQuizArea>
           <QuizNavBtnWrapper>
-            {currentQuizNum>1&&
-            <QuizNavBtn onClick={()=>{setCurrentQuizNum(currentQuizNum-1)}}>이전 문제</QuizNavBtn>}
-            <input type="text" value={currentQuizNum}/>
-            {currentQuizNum<quizLength&&<QuizNavBtn onClick={()=>{setCurrentQuizNum(currentQuizNum+1)}}>다음 문제</QuizNavBtn>}
+            
+            <QuizNavBtn onClick={handleSetQuizNumDown}>
+              <div className="IconWrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>              </div> 
+              <div className="words">이전문제</div>  
+            </QuizNavBtn>
+
+            <input type="text" value={currentQuizNum} onChange={InputCurrentQuizNum}/>
+
+            <QuizNavBtn onClick={handleSetQuizNumUp}>
+              <div className="words">다음문제</div>  
+              <div className="IconWrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+              </div>
+            </QuizNavBtn>
           </QuizNavBtnWrapper>
       </CustomQuizAreaWrapper>
 

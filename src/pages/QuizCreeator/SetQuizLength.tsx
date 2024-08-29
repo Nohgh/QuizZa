@@ -35,9 +35,9 @@ const SetQuizLength = ({setCreateStep}:PropsType) => {
     const handleQuizLength=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setQuizLength(Number(e.target.value));
     }
+    //숫자 입력 후 enter키 인식
     const enterKeyPress=(e:React.KeyboardEvent)=>{
         if(e.key==='Enter' && quizLength>0) setCreateStep(1);
-
     }
   return (
     <InputQuizLength>
