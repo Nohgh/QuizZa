@@ -130,6 +130,18 @@ const QuizNavBtnWrapper=styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 10%;
+  .CurrntNumInputBOx{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 17px;
+    border: 1px solid ${Colors.gray2};
+    border-radius: 10px;
+    &:focus{
+      outline: none;
+      border: 1px solid #42F08E;
+    }
+  }
 `
 
 const QuizNavBtn=styled.div`
@@ -154,6 +166,26 @@ const QuizNavBtn=styled.div`
     }
   }
 `
+const UnderQuizBtnWrapper =styled.div`
+`
+const ResizeLengthBtn=styled.div`
+margin-bottom: 10px;
+  ${flexCenter}
+  width: 10vw;
+  height: 30px;
+  background-color: #F0F4FE;
+  color:#8DA8E0;
+  border-radius: 7px;
+`
+const QuizDoneBtn=styled.div`
+
+ ${flexCenter}
+  width: 10vw;
+  height: 30px;
+  background-color: #8DA8E0;
+  color:#F0F4FE;
+  border-radius: 7px;
+`
 //useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.
 
 // const quizBundle={}
@@ -171,8 +203,9 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
     if (currentQuizNum<quizLength) setCurrentQuizNum(currentQuizNum+1)
   }
   const InputCurrentQuizNum=(e:React.ChangeEvent<HTMLInputElement>)=>{
-    setCurrentQuizNum(Number(e.target.value));
-
+    const inputN=Number(e.target.value)
+    if ( inputN<=quizLength ){
+      setCurrentQuizNum(inputN);}
   }
 
   //전체 퀴즈 수
@@ -281,8 +314,7 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
               <div className="words">이전문제</div>  
             </QuizNavBtn>
 
-            <input type="text" value={currentQuizNum} onChange={InputCurrentQuizNum}/>
-
+            <input className="CurrntNumInputBOx" type="text" value={currentQuizNum} onChange={InputCurrentQuizNum}/>
             <QuizNavBtn onClick={handleSetQuizNumUp}>
               <div className="words">다음문제</div>  
               <div className="IconWrapper">
@@ -291,9 +323,12 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
             </QuizNavBtn>
           </QuizNavBtnWrapper>
       </CustomQuizAreaWrapper>
-
-      <button onClick={()=>{setCreateStep(1)}}>처음으로</button>
-      {currentQuizNum==quizLength&&<button onClick={()=>{setCreateStep(2)}}>생성 완료하기</button>}
+      <UnderQuizBtnWrapper >
+        <ResizeLengthBtn onClick={()=>{setCreateStep(0)}}>문제 다시 세팅하기</ResizeLengthBtn>
+        {currentQuizNum==quizLength&&
+        <QuizDoneBtn onClick={()=>{setCreateStep(2)}}>생성 완료하기</QuizDoneBtn>}
+      </UnderQuizBtnWrapper>
+   
     </CustomQuizWrapper>
   )
 }
