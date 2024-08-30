@@ -89,7 +89,8 @@ export const QuizTitleInput = styled.input`
 export const MultichoiceForm = styled.div`
     width: 100%;
     display: flex;
-    ${flexCenter}
+    justify-content: space-between;
+    /* ${flexCenter} */
     .CorrectNumWords {
         color: ${Colors.black0};
     }
@@ -210,7 +211,7 @@ export const TimeUpBtnBunddle = styled.div`
     height: 20%;
     ${flexCenter}
     border-radius: 8px 8px 0px 0px;
-    background-color: #E9ECEF;
+    background-color: ${Colors.gray0};
     .TimeUp {
         width: 50%;
         text-align: center;
@@ -221,7 +222,7 @@ export const TimeDownBtnBunddle = styled.div`
     width: 100%;
     height: 20%;
     ${flexCenter}
-    background-color: #E9ECEF;
+    background-color: ${Colors.gray0};
     border-radius: 0px 0px 8px 8px;
     .TimeDown {
         width: 50%;
