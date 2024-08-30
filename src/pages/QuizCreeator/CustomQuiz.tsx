@@ -124,7 +124,6 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
   // }
   return (
     <Q.CustomQuizWrapper>
-      {/* currentQuizNum ,quizLength*/}
       <Q.ProgressBarWrapper>
         <Q.ProgressBar currentParsent={Number((currentQuizNum/quizLength)*100)} >
           <div>
@@ -135,19 +134,16 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
       <Q.CustomQuizAreaWrapper>
         {/*TODO: CustomQuizArea 레벨에서 한 문제 단위 관리가 되어야함  */}
           <Q.CustomQuizArea>
-            {/* setQuizType */}
             <Q.QuizTypeBtnBundle className="QuizType"  >
               <Q.QuizTypeBtn className="QuizTypeBtn" isActive={quizType==="객관식"} onClick={()=>setQuizType('객관식')}>객관식</Q.QuizTypeBtn>
               <Q.QuizTypeBtn className="QuizTypeBtn" isActive={quizType==="주관식"} onClick={()=>setQuizType('주관식')}>주관식</Q.QuizTypeBtn>
               <Q.QuizTypeBtn className="QuizTypeBtn" isActive={quizType==="서술형"} onClick={()=>setQuizType('서술형')}>서술형</Q.QuizTypeBtn>
             </Q.QuizTypeBtnBundle>
-            {/*currentQuizNum, quizTitle, handleQuizTitle  */}
             <Q.QuizTitleWrapper>
               <Q.QuizTitleTitle>{currentQuizNum}번의 문제 제목을 작성하세요</Q.QuizTitleTitle>
               <Q.QuizTitleInput type="text" value={quizTitle} onChange={handleQuizTitle}/>
             </Q.QuizTitleWrapper>
             {quizType==='객관식'&&
-            // rightNum,setRightNum
               <Q.MultichoiceForm>
                 <div>
                   <div className="MultichoiceFormWords">보기를 작성하고 옆의 번호를 클릭하여 정답을 표시하세요</div>

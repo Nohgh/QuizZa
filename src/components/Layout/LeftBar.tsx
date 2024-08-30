@@ -29,6 +29,7 @@ const SideBar=styled.div`
 
 `
 const ShortSideBar=styled.div`
+
     width: 20px;
     height:85%;
     display: flex;
@@ -56,6 +57,7 @@ const LeftIcon=styled.svg`
     margin-top: 10%;
     width: 20px;
     height: 20px;
+    cursor: pointer;
 `
 const LeftBar = () => {
     const {isLeftBarOpen,setIsLeftBarOpen}=useLeftBarStore();

@@ -20,6 +20,7 @@ const InputQuizLength=styled.div`
     }
 `
 const QuizNumBtn=styled.div`
+    cursor: pointer;
     ${BasicBtn}
 `
 //useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.

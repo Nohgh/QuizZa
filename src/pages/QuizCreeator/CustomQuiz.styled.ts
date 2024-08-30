@@ -69,6 +69,7 @@ export const QuizTypeBtn = styled.div.withConfig({
     border-radius: 7px;
     background-color: ${(props) => (props.isActive ? "#E9ECEF" : "")};
     color: ${(props) => (props.isActive ? "#343A40" : "#ADB5BD")};
+    cursor: pointer;
 `;
 
 export const QuizTitleWrapper = styled.div`
@@ -116,6 +117,7 @@ export const InQuizNum = styled.div`
         height: 20px;
         border-radius: 50%;
         border: 1px solid ${Colors.black2};
+        cursor: pointer;
     }
     input {
         margin-left: 1%;
@@ -181,6 +183,7 @@ display: flex;
 align-items: center;
 transition: 200ms;
 position: relative; /* 상대적인 위치 설정 */
+cursor: pointer;
 .firstToggle {
   width: 25px;
   height: 25px;
@@ -239,6 +242,7 @@ export const QuizNavBtn = styled.div`
     border-radius: 8px;
     border: 1px solid ${Colors.gray2};
     padding: 1%;
+    cursor: pointer;
     .words {
         ${flexCenter}
         width: 80%;
@@ -253,7 +257,8 @@ export const QuizNavBtn = styled.div`
     }
 `;
 
-export const UnderQuizBtnWrapper = styled.div``;
+export const UnderQuizBtnWrapper = styled.div`
+`;
 
 export const ResizeLengthBtn = styled.div`
     margin-bottom: 10px;
@@ -263,6 +268,7 @@ export const ResizeLengthBtn = styled.div`
     background-color: #F0F4FE;
     color: #8DA8E0;
     border-radius: 7px;
+    cursor: pointer;
 `;
 
 export const QuizDoneBtn = styled.div`
@@ -272,6 +278,7 @@ export const QuizDoneBtn = styled.div`
     background-color: #8DA8E0;
     color: #F0F4FE;
     border-radius: 7px;
+    cursor: pointer;
 `;
 
 export const TimerWrapper = styled.div`
