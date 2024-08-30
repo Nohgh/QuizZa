@@ -38,7 +38,7 @@ const Header = () => {
     setIsLeftBarOpen(!isLeftBarOpen);
   }
   //모달 상태
-  const {updateModalName}=useSelectedModal("login");
+  const {updateModalName}=useSelectedModal("login","m");
   return (
     <HeaderWrapper>
       <HeaderBody>

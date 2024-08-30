@@ -3,7 +3,6 @@ import { useQuizLengthStore } from "../../store/useQuizLengthStore"
 
 import * as Q from './CustomQuiz.styled'
 import useSelectedModal from "../../hooks/useSelectedModal";
-import { useModalStore } from "../../store/useModalStore";
 import { useQuizStep } from "../../store/useQuizStep";
 
 
@@ -119,16 +118,12 @@ const CustomQuiz = ()=> {
   //자동채점 설정
   const [autoChecking,setAutoChecking]=useState(false);
   //다음, 이전 단계 모달 관리
-  const {updateModalName}=useSelectedModal("beforeStep");
-  const {isModalOpen}=useModalStore();
+  const {updateModalName}=useSelectedModal("beforeStep","s");
 
   const clickBeforeStep=()=>{
     //모달을 띄운다 모달에서 ok가 된다 이전단계로 이동한다.
-    console.log(1)
-
     updateModalName();
-    console.log(2)
-    if(!isModalOpen)setCreateStep(0);
+    // if(!isModalOpen)setCreateStep(0);
   }
   return (
     <Q.CustomQuizWrapper>
@@ -243,7 +238,7 @@ const CustomQuiz = ()=> {
       </Q.CustomQuizAreaWrapper>
       <Q.UnderQuizBtnWrapper >
         {/* TODO: 두개의 버튼 클릭시 모달로 취소 확인 누르고 이동할 수 있게 구현하기 */}
-        <Q.ResizeLengthBtn onClick={ clickBeforeStep} >문제 수 다시 세팅</Q.ResizeLengthBtn>
+        <Q.ResizeLengthBtn onClick={clickBeforeStep} >문제 수 다시 세팅</Q.ResizeLengthBtn>
         {currentQuizNum==quizLength&&
         // TODO: 생성 완료 전 모달에서 이번 퀴즈의 제목은 뭐라고 지을까요
         <Q.QuizDoneBtn onClick={()=>{setCreateStep(2)}}>생성 완료하기</Q.QuizDoneBtn>}

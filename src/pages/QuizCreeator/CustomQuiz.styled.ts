@@ -172,6 +172,7 @@ export const ShortAnswerToggleWrapper=styled.div`
     width: 150px;
     display: flex;
     align-items: center;
+
 `
 export const ShortAnswerToggleWords=styled.div`
 width: 60%;
@@ -182,24 +183,25 @@ width: 60%;
 export const ShortAnswerToggle=styled.div.withConfig({
     shouldForwardProp:(prop)=>prop!=='autoChecking'
 })<AutoCheckingType>`
-width: 60px;
-height: 30px;
-background-color: ${(prop) => (prop.autoChecking ? '#95E5B8' : '#CED4DA')};
-border-radius: 20px;
-display: flex;
-align-items: center;
-transition: 200ms;
-position: relative; /* 상대적인 위치 설정 */
-cursor: pointer;
-.firstToggle {
-  width: 25px;
-  height: 25px;
-  background-color: #495057;
-  border-radius: 50%;
-  position: absolute; /* 절대 위치 설정 */
-  left: ${(prop) => (prop.autoChecking ? 'calc(100% - 25px - 5px)' : '5px')}; /* 스위치 버튼 위치 조정 */
-  transition: ease 150ms;
-}
+    width: 60px;
+    height: 30px;
+    background-color: ${(prop) => (prop.autoChecking ? '#95E5B8' : '#CED4DA')};
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 200ms;
+    position: relative; /* 상대적인 위치 설정 */
+    z-index:1;
+    cursor: pointer;
+    .firstToggle {
+    width: 25px;
+    height: 25px;
+    background-color: #495057;
+    border-radius: 50%;
+    position: absolute; /* 절대 위치 설정 */
+    left: ${(prop) => (prop.autoChecking ? 'calc(100% - 25px - 5px)' : '5px')}; /* 스위치 버튼 위치 조정 */
+    transition: ease 150ms;
+    }
 `;
 export const LognAnswerWrapper=styled.div`
     width: 100%;
