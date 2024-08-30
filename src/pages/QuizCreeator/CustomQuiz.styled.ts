@@ -73,7 +73,7 @@ export const QuizTypeBtn = styled.div.withConfig({
 
 export const QuizTitleWrapper = styled.div`
     width: 100%;
-    margin-bottom: 2%;
+    margin-bottom: 3%;
 `;
 
 export const QuizTitleTitle = styled.div``;
@@ -102,7 +102,7 @@ export const MultichoiceForm = styled.div`
         width: 30px;
     }
     .MultichoiceFormWords {
-        margin-bottom: 1.5%;
+        margin-bottom: 4%;
     }
 `;
 
@@ -119,7 +119,7 @@ export const InQuizNum = styled.div`
     }
     input {
         margin-left: 1%;
-        width: 60%;
+        width: 35vw;
         height: 20px;
         border: none;
         border-bottom: 1.5px solid ${Colors.gray3};
@@ -149,7 +149,7 @@ export const ShortAnswerWrapper=styled.div`
 `
 export const ShortAnswerInput=styled.input`
     font-size: 15px;
-    width: 45vw;
+    width: 100%;
     height: 30px;
     border: none;
     border-bottom: 1.5px solid ${Colors.gray3};

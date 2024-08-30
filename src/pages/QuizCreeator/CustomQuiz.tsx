@@ -250,6 +250,7 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
           </Q.QuizNavBtnWrapper>
       </Q.CustomQuizAreaWrapper>
       <Q.UnderQuizBtnWrapper >
+        {/* TODO: 두개의 버튼 클릭시 모달로 취소 확인 누르고 이동할 수 있게 구현하기 */}
         <Q.ResizeLengthBtn onClick={()=>{setCreateStep(0)}}>문제 수 다시 세팅</Q.ResizeLengthBtn>
         {currentQuizNum==quizLength&&
         <Q.QuizDoneBtn onClick={()=>{setCreateStep(2)}}>생성 완료하기</Q.QuizDoneBtn>}
