@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenter, flexColumnCenter } from "../../styles/Mixin";
+import { flexCenter, flexColumnAlignCenter, flexColumnCenter } from "../../styles/Mixin";
 import { Colors } from "../../styles/Colors";
 
 interface CurrentParsentType{
@@ -8,14 +8,18 @@ interface CurrentParsentType{
 interface IsActiveType {
     isActive: boolean;
 }
-
+interface AutoCheckingType{
+    autoChecking:boolean
+}
 export const CustomQuizWrapper = styled.div`
     width: 60%;
     height: 100%;
+    /* background-color: red; */
+    ${flexColumnAlignCenter}
 `;
 
 export const ProgressBarWrapper = styled.div`
-    width: 80%;
+    width: 100%;
     height: 5%;
     display: flex;
     justify-content: start;
@@ -76,7 +80,7 @@ export const QuizTitleTitle = styled.div``;
 
 export const QuizTitleInput = styled.input`
     font-size: 18px;
-    width: 50vw;
+    width: 100%;
     height: 30px;
     border: none;
     border-bottom: 1.5px solid ${Colors.gray3};
@@ -136,7 +140,79 @@ export const CheckIcon = styled.svg.withConfig({
     fill: red;
     display: ${(prop) => prop.isActive ? "block" : "none"};
 `;
-
+export const ShortAnswerWrapper=styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /* justify-content: start; */
+`
+export const ShortAnswerInput=styled.input`
+    font-size: 15px;
+    width: 45vw;
+    height: 30px;
+    border: none;
+    border-bottom: 1.5px solid ${Colors.gray3};
+    &:focus {
+        outline: none;
+        border-bottom: 1.5px solid #42F08E;
+    }
+    margin-bottom: 2%;
+`
+export const ShortAnswerToggleWrapper=styled.div`
+    width: 150px;
+    display: flex;
+    align-items: center;
+`
+export const ShortAnswerToggleWords=styled.div`
+width: 60%;
+    .autoCheckingWord{
+        margin-right: 2%;
+    }
+`
+export const ShortAnswerToggle=styled.div.withConfig({
+    shouldForwardProp:(prop)=>prop!=='autoChecking'
+})<AutoCheckingType>`
+width: 60px;
+height: 30px;
+background-color: ${(prop) => (prop.autoChecking ? '#95E5B8' : '#CED4DA')};
+border-radius: 20px;
+display: flex;
+align-items: center;
+transition: 200ms;
+position: relative; /* 상대적인 위치 설정 */
+.firstToggle {
+  width: 25px;
+  height: 25px;
+  background-color: #495057;
+  border-radius: 50%;
+  position: absolute; /* 절대 위치 설정 */
+  left: ${(prop) => (prop.autoChecking ? 'calc(100% - 25px - 5px)' : '5px')}; /* 스위치 버튼 위치 조정 */
+  transition: ease 150ms;
+}
+`;
+export const LognAnswerWrapper=styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+`
+export const LongAnswerInput=styled.textarea`
+    margin-top: 2%;
+    font-size: 17px;
+    width: 100%;
+    height: 20vh;
+    /* border: none; */
+    border: 1px solid ${Colors.gray3};
+    border-radius: 7px;
+    padding: 5px;
+    resize: none;
+    &:focus {
+        outline: none;
+        border: 1.5px solid #42F08E;
+    }
+    margin-bottom: 2%;
+`
 export const QuizNavBtnWrapper = styled.div`
     ${flexCenter}
     justify-content: space-evenly;
