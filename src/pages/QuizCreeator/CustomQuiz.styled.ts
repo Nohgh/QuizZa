@@ -31,17 +31,18 @@ export const ProgressBar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'currentParsent',
 })<CurrentParsentType>`
     width: 50%;
-    height: 30px;
+    height: 8px;
     background: linear-gradient(90deg, rgba(186,237,158,1) 0%, rgba(149,229,184,1) 34%, rgba(149,211,229,1) 65%, rgba(141,168,224,1) 100%);
     border-radius: 10px;
     ${flexCenter};
     width: ${(prop) => prop.currentParsent}%;
-    transition: ease-in-out 200ms;
+    transition: ease-in-out 400ms;
+
 `;
 
 export const CustomQuizAreaWrapper = styled.div`
     width: 100%;
-    height: 60%;
+    height: 66%;
 `;
 
 export const CustomQuizArea = styled.div`
@@ -109,7 +110,7 @@ export const MultichoiceForm = styled.div`
 
 export const InQuizNum = styled.div`
     display: flex;
-    margin-bottom: 1.2%; 
+    margin-bottom: 3%; 
     position: relative;
     .num {
         ${flexCenter}
@@ -120,6 +121,7 @@ export const InQuizNum = styled.div`
         cursor: pointer;
     }
     input {
+        font-size: 15px;
         margin-left: 1%;
         width: 35vw;
         height: 20px;
@@ -147,6 +149,11 @@ export const ShortAnswerWrapper=styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
+    .ToggleInfo{
+        margin-top: 1%;
+        font-size: 14px;
+        color: ${Colors.gray4};
+    }
     /* justify-content: start; */
 `
 export const ShortAnswerInput=styled.input`
@@ -199,6 +206,11 @@ export const LognAnswerWrapper=styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
+    .ToggleInfo{
+        margin-top: 1%;
+        font-size: 14px;
+        color: ${Colors.gray4};
+    }
 `
 export const LongAnswerInput=styled.textarea`
     margin-top: 2%;

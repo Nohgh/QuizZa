@@ -2,6 +2,7 @@ import styled from "styled-components"
 import {flexColumnAlignCenter} from "../../styles/Mixin"
 import { BasicBtn } from "../../styles/DesignSystem";
 import { useQuizLengthStore } from "../../store/useQuizLengthStore";
+import { useQuizStep } from "../../store/useQuizStep";
 
 const InputQuizLength=styled.div`
     width: 50%;
@@ -23,13 +24,10 @@ const QuizNumBtn=styled.div`
     cursor: pointer;
     ${BasicBtn}
 `
-//useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.
-interface PropsType{
-    setCreateStep:React.Dispatch<React.SetStateAction<number>>
-}
 
-const SetQuizLength = ({setCreateStep}:PropsType) => {
+const SetQuizLength = () => {
     //세팅한 문제 수
+    const {setCreateStep}=useQuizStep();
     // const [quizLength,setQuizLength]=useState<number>(0);
     const {quizLength,setQuizLength}=useQuizLengthStore();
     //문제 수 세팅

@@ -1,9 +1,9 @@
-import { useState } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 import SetQuizLength from "./SetQuizLength";
 import {flexJustCenter} from "../../styles/Mixin"
 import CustomQuiz from "./CustomQuiz";
+import { useQuizStep } from "../../store/useQuizStep";
 
 const QuizCreatorWrapper=styled.div`
     font-family: 'SUIT-Regular';
@@ -15,15 +15,15 @@ const QuizCreatorWrapper=styled.div`
 
 const QuizCreator = () => {
     // 0. 문제수 세팅 | 1. 문제 생성 | 2. 생성 완료
-    const [createStep,setCreateStep]=useState<number>(0);
+    const {createStep,setCreateStep}=useQuizStep();
     return (
         <QuizCreatorWrapper>
             {createStep===0 &&
-                <SetQuizLength setCreateStep={setCreateStep}/>
+                <SetQuizLength/>
             }
             {createStep===1 &&
             //TODO: 문제 길이 전역적으로 관리 
-                <CustomQuiz setCreateStep={setCreateStep}/>
+                <CustomQuiz/>
             }
 
             {createStep===2 &&

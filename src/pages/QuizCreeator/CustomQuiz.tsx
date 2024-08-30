@@ -2,26 +2,24 @@ import {  useState } from "react";
 import { useQuizLengthStore } from "../../store/useQuizLengthStore"
 
 import * as Q from './CustomQuiz.styled'
+import useSelectedModal from "../../hooks/useSelectedModal";
+import { useModalStore } from "../../store/useModalStore";
+import { useQuizStep } from "../../store/useQuizStep";
 
 
 //useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.
 
-// const quizBundle={}
-interface PropsType{
-  setCreateStep:React.Dispatch<React.SetStateAction<number>>
-}
-// interface QuizTimeType{
-//     min:number;
-//     sec:number;
-// }
-const CustomQuiz = ({setCreateStep}:PropsType)=> {
+
+
+const CustomQuiz = ()=> {
+  const {setCreateStep}=useQuizStep();
   //현재 퀴즈 번호
   const [currentQuizNum,setCurrentQuizNum]=useState<number>(1);
   //현재 퀴즈 번호 다운
   const handleSetQuizNumDown=()=>{
     if (currentQuizNum>1){
       //1. 현재 form 서버로 post
-      currentFormRest()//2.현재 폼 리셋
+      formRest()//2.현재 폼 리셋
       //3. 다음(이전) 번호 저장된 값 있는지 확인하여 있으면 가져오기
       setCurrentQuizNum(currentQuizNum-1)
     }
@@ -32,16 +30,17 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
       // TODO: 퀴즈 번호 업데이트
 
       //1. 현재 form 서버로 post
-      currentFormRest()//2.현재 폼 리셋
+      formRest()//2.현재 폼 리셋
       //3. 다음(이전) 번호 저장된 값 있는지 확인하여 있으면 가져오기
       setCurrentQuizNum(currentQuizNum+1)
     }//4.다음(이전) 번호로 이동
   }
   /**문제 이동 전 후 현재 폼 리셋 */
-  const currentFormRest=()=>{
-    setQuizTitle(''); //문제 유형에 종속도지 않음 
+  const formRest=()=>{
+    setQuizTitle('');
+    setQuizType("객관식"); //문제 유형에 종속도지 않음 
+
     if(quizType==="객관식"){
-      setQuizType("객관식");
       setChoices({
         choice1:"",
         choice2:"",
@@ -50,6 +49,14 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
         choice5:""});
       setRightNum(null);
     };
+    if(quizType==="주관식"){
+      setShortAnswer("");
+      setAutoChecking(false);
+    }
+    if(quizType==="서술형"){
+      setLongAnswer("");
+      setAutoChecking(false);
+    }
   }
 //현재 퀴즈 번호 입력하여 조정
   const InputCurrentQuizNum=(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -57,7 +64,6 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
     if ( inputN<=quizLength ){
       setCurrentQuizNum(inputN);}
   }
-
   //전체 퀴즈 수
   const {quizLength}=useQuizLengthStore();
   //문제 유형
@@ -100,34 +106,36 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
       setRightNum(n);
     }
   }
-  //주관식, 서술식 답안
+  //주관식 답안
   const [shortAnswer,setShortAnswer]=useState("");
   const handleShortAnswer=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setShortAnswer(e.target.value);
   }
+  //서술형 답안
   const [longAnswer,setLongAnswer]=useState("");
   const handleLongAnswer=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setLongAnswer(e.target.value);
   }
+  //자동채점 설정
   const [autoChecking,setAutoChecking]=useState(false);
-  //타이머 설정
-  // const [QuizTime,setQuizTime]=useState<QuizTimeType>({
-  //   min:0,
-  //   sec:0
-  // })
-  // const clickUpTime=()=>{
-  //   //이렇게 하는 이유는 useState에서 세팅한 객체 모두를 업데이트 해야하기 떄문에 
-  //   setQuizTime((prev)=>({
-  //     ...prev,
-  //     min:prev.min+1 //전 값에 +1 시킨다.
-  //   }));
-  // }
+  //다음, 이전 단계 모달 관리
+  const {updateModalName}=useSelectedModal("beforeStep");
+  const {isModalOpen}=useModalStore();
+
+  const clickBeforeStep=()=>{
+    //모달을 띄운다 모달에서 ok가 된다 이전단계로 이동한다.
+    console.log(1)
+
+    updateModalName();
+    console.log(2)
+    if(!isModalOpen)setCreateStep(0);
+  }
   return (
     <Q.CustomQuizWrapper>
       <Q.ProgressBarWrapper>
         <Q.ProgressBar currentParsent={Number((currentQuizNum/quizLength)*100)} >
           <div>
-          {currentQuizNum}/{quizLength}
+          {/* {currentQuizNum}/{quizLength} */}
           </div>
         </Q.ProgressBar>
       </Q.ProgressBarWrapper>
@@ -183,22 +191,6 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
                     <input type="text" value={choices.choice5} onChange={(e)=>handleChoices(e,"choice5")}/>
                   </Q.InQuizNum>
                 </div>
-                {/* TODO: 타이머 만들긴 했지만 적용할지는 미지수 , 시간 조정 함수  */}
-                {/* QuizTime */}
-                {/* <Q.TimerWrapper>
-                  <Q.TimeUpBtnBunddle>
-                    <div className="TimeUp" onClick={clickUpTime}>+1</div>
-                    <div className="TimeUp">+1</div>
-                  </Q.TimeUpBtnBunddle>
-                  <Q.ShowTimeWrapper>
-                    <div className="QuizTime">{QuizTime.min}분</div>
-                    <div className="QuizTime">{QuizTime.sec}초</div>
-                  </Q.ShowTimeWrapper>
-                  <Q.TimeDownBtnBunddle>
-                    <div className="TimeDown">-1</div>
-                    <div className="TimeDown">-1</div>
-                  </Q.TimeDownBtnBunddle>
-                </Q.TimerWrapper> */}
               </Q.MultichoiceForm>
             }
             {quizType==='주관식'&&
@@ -213,11 +205,13 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
                     <div className="firstToggle" ></div>
                   </Q.ShortAnswerToggle>
                 </Q.ShortAnswerToggleWrapper>
+                <div className="ToggleInfo">주관식과 서술형은 기본적으로 직접 채점 방식이 제공됩니다.</div>
+
               </Q.ShortAnswerWrapper>
             }
             {quizType==='서술형'&&
               <Q.LognAnswerWrapper>
-                <div>서술식 답안을 작성해 주세요</div>
+                <div>서술형 답안을 작성해 주세요</div>
                 <Q.LongAnswerInput value={longAnswer} onChange={handleLongAnswer}/>
                 <Q.ShortAnswerToggleWrapper>
                   <Q.ShortAnswerToggleWords>
@@ -227,6 +221,8 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
                     <div className="firstToggle" ></div>
                   </Q.ShortAnswerToggle>
                 </Q.ShortAnswerToggleWrapper>
+                <div className="ToggleInfo">주관식과 서술형은 기본적으로 직접 채점 방식이 적용됩니다.</div>
+
               </Q.LognAnswerWrapper>
             }
           </Q.CustomQuizArea>
@@ -247,8 +243,9 @@ const CustomQuiz = ({setCreateStep}:PropsType)=> {
       </Q.CustomQuizAreaWrapper>
       <Q.UnderQuizBtnWrapper >
         {/* TODO: 두개의 버튼 클릭시 모달로 취소 확인 누르고 이동할 수 있게 구현하기 */}
-        <Q.ResizeLengthBtn onClick={()=>{setCreateStep(0)}}>문제 수 다시 세팅</Q.ResizeLengthBtn>
+        <Q.ResizeLengthBtn onClick={ clickBeforeStep} >문제 수 다시 세팅</Q.ResizeLengthBtn>
         {currentQuizNum==quizLength&&
+        // TODO: 생성 완료 전 모달에서 이번 퀴즈의 제목은 뭐라고 지을까요
         <Q.QuizDoneBtn onClick={()=>{setCreateStep(2)}}>생성 완료하기</Q.QuizDoneBtn>}
       </Q.UnderQuizBtnWrapper>
     </Q.CustomQuizWrapper>

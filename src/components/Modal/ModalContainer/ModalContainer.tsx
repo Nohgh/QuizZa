@@ -63,6 +63,11 @@ const ModalContainer= ({modalRef}:ModalContainerProps) => {
                             <LoginModal/>
                         </div>
                       }
+                      {modalName==='beforeStep'&&
+                        <div>
+                            <LoginModal/>
+                        </div>
+                      }
                     </>
                 </ModalBodyWrapper>
             </ModalOutSide>
