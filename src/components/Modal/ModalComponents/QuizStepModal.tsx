@@ -1,29 +1,77 @@
 import styled from "styled-components"
-import { flexCenter } from "../../../styles/Mixin"
+import { flexCenter, flexColumnCenter } from "../../../styles/Mixin"
+import { Colors } from "../../../styles/Colors"
+import { useModalStore } from "../../../store/useModalStore"
+import { useQuizStep } from "../../../store/useQuizStep"
 
+const BeforeStepModalWrapper=styled.div`
+    width: 100%;
+    height: 100%;
+`
 const BeforeStepModal=styled.div`
-    padding: 5%;
+    padding: 2%;
     width: 100%;
     height: 100%;
 `
 const BeforeStepModalIcon=styled.div`
     width: 100%;
-    height: 60px;
+    height: 30px;
     ${flexCenter}
     .BeforeStepModalIcon{
-        width: 60px;
-        height: 60px;
+        width: 30px;
+        height: 30px;
         fill:#FF6464;
     }
 `
 const BeforeStepModalWords=styled.div`
-margin-top: 15%;
-    font-size: 20px;
-    font-weight: 700;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 2%;
+    ${flexColumnCenter}
+    /* background-color: #1a2e40; */
+    .smallWords{
+        font-size: 13px;
+        color: ${Colors.gray4};
+        font-weight: 500;
+    }
+`
+const BeforeStepModalBtnWrapper=styled.div`
+    width: 100%;
+    height: 35px;
+    ${flexCenter}
+    justify-content: space-evenly;
+    margin-top: 4%;
+    font-size: 17px;
+    font-weight:600;
+    .cancle{
+        background-color: ${Colors.gray1};
+        color: ${Colors.gray4};
+    }
+    .ok{
+        background-color: #FFE7E7;
+        color: #FF6464;
+    }
+`
+const BeforeStepModalBtn=styled.div`
+    ${flexCenter}
+    border-radius: 8px;
+    width: 43%;
+    height: 100%;
+    cursor: pointer;
 `
 const QuizStepModal = ({ step }: { step: string }) => {
+    const {setModalState}=useModalStore();
+    const {setCreateStep}=useQuizStep();
+    const clickCancle=()=>{
+        setModalState(false);
+    }
+    const clickBefore=()=>{
+        setCreateStep(0);
+        setModalState(false);
+    }
     return (
-    <>
+    <BeforeStepModalWrapper >
         {step==='beforeStep'&& 
             <BeforeStepModal>
                 <BeforeStepModalIcon>
@@ -31,15 +79,15 @@ const QuizStepModal = ({ step }: { step: string }) => {
                 </BeforeStepModalIcon>
                 <BeforeStepModalWords>
                     <div>작성한 문제는 저장되지 않습니다.</div>
-                    <div>문제를 다시 세팅하겠습니까?</div>
+                    <div className="smallWords">문제를 다시 세팅하겠습니까?</div>
                 </BeforeStepModalWords>
-                <div>
-                    <div>취소</div>
-                    <div>확인</div>
-                </div>
+                <BeforeStepModalBtnWrapper>
+                    <BeforeStepModalBtn className="cancle" onClick={clickCancle}>취소</BeforeStepModalBtn>
+                    <BeforeStepModalBtn className="ok" onClick={clickBefore}>확인</BeforeStepModalBtn>
+                </BeforeStepModalBtnWrapper>
             </BeforeStepModal>}
         {step==='nextStep'&& <div>nextStep</div>}
-    </>
+    </BeforeStepModalWrapper>
         
     
   )
