@@ -9,13 +9,7 @@ import GlobalStyles from './styles/GlobalStyles'
 import Quiz from './pages/Quiz/Quiz'
 import QuizCreator from './pages/QuizCreeator/QuizCreator'
 import QuizModifier from './pages/QuizModifier/QuizModifier'
-
-// interface IsModalOpenType{
-//   isModalOpen:boolean;
-// }
-
-// const MainBody = styled.div<IsModalOpenType>`
-//   `
+import MainTost from './components/Toast/MainTost'
 
 function App() {
   const {modalRef,clickOutSideModal}=useSetModal();
@@ -34,6 +28,7 @@ function App() {
               <Route path='/creator' element={<QuizCreator/>}></Route>
               <Route path='/modifier' element={<QuizModifier/>}></Route>
             </Routes>
+            <MainTost/>
           </div>
         </div>
       </div>
