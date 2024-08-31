@@ -36,7 +36,7 @@ const ModalBodyWrapper=styled.div.withConfig({
     width:300px;
 
     height: ${(prop) => 
-    prop.modalSize === 's' ? '140px' : 
+    prop.modalSize === 's' ? '140px' : //2개 이상의 조건일떄의 삼항 연산
     prop.modalSize === 'm' ? '200px' : 
     prop.modalSize === 'l' ? '300px' : 
   'auto'};

@@ -1,8 +1,10 @@
 import styled from "styled-components"
-import { flexCenter, flexColumnCenter } from "../../../styles/Mixin"
+import { flexCenter, flexColumnAlignCenter, flexColumnCenter } from "../../../styles/Mixin"
 import { Colors } from "../../../styles/Colors"
 import { useModalStore } from "../../../store/useModalStore"
 import { useQuizStep } from "../../../store/useQuizStep"
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const BeforeStepModalWrapper=styled.div`
     width: 100%;
@@ -60,7 +62,49 @@ const BeforeStepModalBtn=styled.div`
     height: 100%;
     cursor: pointer;
 `
+const NextStepModal=styled.div`
+    ${flexColumnAlignCenter}
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    /* background-color: ${Colors.gray5}; */
+    /* color: white; */
+`
+const NextStepModalWords=styled.div`
+    width: 100%;
+    height: 40px;
+    ${flexCenter}
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 1%;
+`
+const NextStepModalInput=styled.input`
+    outline: none;
+    height: 30px;
+    width: 90%;
+    border:none;
+    border-bottom: 1px solid ${Colors.gray4};
+    font-size: 16px;
+    color: ${Colors.black1};
+    margin-bottom: 6%;
+    &:focus{
+        border-bottom: 1px solid #FF94D4;
+    }
+`
+const NextStepModalBtn=styled.div`
+border-radius: 8px;
+    ${flexCenter}
+    width: 50%;
+    height: 30px;
+    background-color: #FFEDF8;
+    font-size: 19px;
+    color: #FF94D4;
+    font-weight: 600;
+`
 const QuizStepModal = ({ step }: { step: string }) => {
+    const navigate=useNavigate();
+
     const {setModalState}=useModalStore();
     const {setCreateStep}=useQuizStep();
     const clickCancle=()=>{
@@ -69,6 +113,15 @@ const QuizStepModal = ({ step }: { step: string }) => {
     const clickBefore=()=>{
         setCreateStep(0);
         setModalState(false);
+    }
+    const [quizBigTitle,setQuizBigTitle]=useState("");
+    const handleQuizBigTitle=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        setQuizBigTitle(e.target.value);
+    }
+
+    const clickNextStep=()=>{
+        setModalState(false);
+        navigate("/quizes");
     }
     return (
     <BeforeStepModalWrapper >
@@ -86,7 +139,12 @@ const QuizStepModal = ({ step }: { step: string }) => {
                     <BeforeStepModalBtn className="ok" onClick={clickBefore}>확인</BeforeStepModalBtn>
                 </BeforeStepModalBtnWrapper>
             </BeforeStepModal>}
-        {step==='nextStep'&& <div>nextStep</div>}
+        {step==='nextStep'&& 
+        <NextStepModal>
+            <NextStepModalWords> 이번 퀴즈의  큰제목을 입력하세요</NextStepModalWords>
+            <NextStepModalInput type="text" value={quizBigTitle} onChange={handleQuizBigTitle}/>
+            {quizBigTitle && <NextStepModalBtn onClick={clickNextStep}>저장하기</NextStepModalBtn>}
+        </NextStepModal>}
     </BeforeStepModalWrapper>
         
     

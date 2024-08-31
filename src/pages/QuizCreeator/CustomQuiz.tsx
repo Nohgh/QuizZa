@@ -3,7 +3,7 @@ import { useQuizLengthStore } from "../../store/useQuizLengthStore"
 
 import * as Q from './CustomQuiz.styled'
 import useSelectedModal from "../../hooks/useSelectedModal";
-import { useQuizStep } from "../../store/useQuizStep";
+// import { useQuizStep } from "../../store/useQuizStep";
 
 
 //useState의 set함수가 props로 들어올때는 타입을 지정 해줘야 한다.
@@ -11,7 +11,7 @@ import { useQuizStep } from "../../store/useQuizStep";
 
 
 const CustomQuiz = ()=> {
-  const {setCreateStep}=useQuizStep();
+  // const {setCreateStep}=useQuizStep();
   //현재 퀴즈 번호
   const [currentQuizNum,setCurrentQuizNum]=useState<number>(1);
   //현재 퀴즈 번호 다운
@@ -118,12 +118,19 @@ const CustomQuiz = ()=> {
   //자동채점 설정
   const [autoChecking,setAutoChecking]=useState(false);
   //다음, 이전 단계 모달 관리
-  const {updateModalName}=useSelectedModal("beforeStep","s");
+  // const [stepChange,setStepChange]=useState("beforeStep");
+  
+  const { updateModalName: updateModalNameBefore } = useSelectedModal("beforeStep", "s");
+  // TODO: 이곳 정리하기 , nextStep모달 개발
+  //만약 여기서 updateModalName을 단순히 2번 사용하면 변수 중복 오류가 발생 따라서 :을 사용해 변수 이름을 변경하여 사용한다.
+  const { updateModalName: updateModalNameAfter } = useSelectedModal("nextStep", "s");
 
   const clickBeforeStep=()=>{
-    //모달을 띄운다 모달에서 ok가 된다 이전단계로 이동한다.
-    updateModalName();
-    // if(!isModalOpen)setCreateStep(0);
+    updateModalNameBefore();
+  }
+
+  const clickNextStep=()=>{
+    updateModalNameAfter();
   }
   return (
     <Q.CustomQuizWrapper>
@@ -241,7 +248,7 @@ const CustomQuiz = ()=> {
         <Q.ResizeLengthBtn onClick={clickBeforeStep} >문제 수 다시 세팅</Q.ResizeLengthBtn>
         {currentQuizNum==quizLength&&
         // TODO: 생성 완료 전 모달에서 이번 퀴즈의 제목은 뭐라고 지을까요
-        <Q.QuizDoneBtn onClick={()=>{setCreateStep(2)}}>생성 완료하기</Q.QuizDoneBtn>}
+        <Q.QuizDoneBtn onClick={clickNextStep}>생성 완료하기</Q.QuizDoneBtn>}
       </Q.UnderQuizBtnWrapper>
     </Q.CustomQuizWrapper>
   )
